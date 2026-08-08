@@ -11,7 +11,7 @@
 | 3 | `case1-before.jpg` / `case1-after.jpg` | 1200×900 (4:3), JPG | До/после №1 | Жилая комната или кухня: «до» — обжитой беспорядок и пыль (без трэша), «после» — та же точка съёмки, идеально. Одинаковый ракурс и свет — критично! |
 | 4 | `case2-before.jpg` / `case2-after.jpg` | 1200×900 (4:3), JPG | До/после №2 | После ремонта: строительная пыль, плёнка, разводы на окнах → чистая готовая комната. Тот же ракурс. |
 | 5 | `case3-before.jpg` / `case3-after.jpg` | 1200×900 (4:3), JPG | До/после №3 | Дом/терраса в Красной Поляне: запылённая гостиная с камином → сияющая. Тот же ракурс. |
-| 6 | `og-cover.jpg` (опц.) | 1200×630, JPG | Превью ссылки в соцсетях | Логотип на графитовом фоне + строка «Премиальный клининг в Сочи». |
+| 6 | `og-cover-accessible.jpg` | 1200×630, JPG | Превью ссылки в соцсетях | Фирменный интерьер + строка «Доступный клининг квартир и домов в Сочи». |
 
 Промт-заготовка для hero (Midjourney/DALL-E, адаптируй):
 > Luxurious modern living room in Sochi, floor-to-ceiling windows, blurred sea view, morning soft light, marble and warm wood, perfectly clean, white and beige palette, premium real estate photography, vertical 4:5, no people, photorealistic
