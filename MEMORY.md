@@ -46,5 +46,9 @@
 - GitHub остаётся источником истины. Workflow `.github/workflows/deploy.yml` после каждого push в `main` собирает проект и синхронизирует `dist/` с Yandex Object Storage.
 - Для деплоя используется сервисный аккаунт Yandex Cloud с ролью `storage.editor`; статические ключи хранятся только в GitHub Actions Secrets и не записываются в репозиторий.
 - При смене хостинга домен и URL не меняются. Метрику, Вебмастер, рекламные ссылки, цели, canonical, robots.txt и sitemap.xml не заменять.
+- Cloud DNS: публичная зона `vershina-23-ru`, ID `dnscamf9md9m3qgo63ph`; apex использует ANAME на `vershina-23.ru.website.yandexcloud.net`, `www` — CNAME на технический бакет, CAA разрешает `letsencrypt.org`.
+- Certificate Manager: сертификат `vershina-23-ru`, ID `fpq653d9akrb5hbcpghe`, домены `vershina-23.ru` и `www.vershina-23.ru`. До выпуска сертификата оба бакета временно содержат полную копию сайта и файлы HTTP-проверки.
+- 29.09.2026 в REG.RU DNS-серверы домена заменены на `ns1.yandexcloud.net` и `ns2.yandexcloud.net`. На момент записи делегация ещё обновлялась в реестре `.ru`; после статуса сертификата `Issued` его нужно подключить к обоим бакетам, а `www` перевести на HTTPS-переадресацию к apex.
+- Ошибочно созданные для `vershina-cleaning.ru` бакеты, DNS-зона, сертификат и GitHub Actions Secrets удалены; основной сайт `vershina-cleaning.ru` остаётся на GitHub Pages и не менялся.
 - Разрешение пользователя: расходы в Yandex Cloud до 100 ₽ можно выполнять без отдельного подтверждения. Обязательные подтверждения интерфейса и безопасности для платежей, удаления или постоянных ключей всё равно запрашивать непосредственно перед действием.
 
