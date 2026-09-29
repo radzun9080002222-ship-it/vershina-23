@@ -21,7 +21,6 @@ jobs:
       AWS_DEFAULT_REGION: ru-central1
       AWS_EC2_METADATA_DISABLED: "true"
       YC_BUCKET: vershina-23.ru
-      YC_WWW_BUCKET: www.vershina-23.ru
       YC_ENDPOINT: https://storage.yandexcloud.net
     steps:
       - uses: actions/checkout@v4
@@ -37,12 +36,6 @@ jobs:
       - name: Upload site
         run: >-
           aws s3 sync dist/ "s3://${YC_BUCKET}"
-          --endpoint-url "${YC_ENDPOINT}"
-          --delete
-          --only-show-errors
-      - name: Upload temporary www copy for certificate validation
-        run: >-
-          aws s3 sync dist/ "s3://${YC_WWW_BUCKET}"
           --endpoint-url "${YC_ENDPOINT}"
           --delete
           --only-show-errors
