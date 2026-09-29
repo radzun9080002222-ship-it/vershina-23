@@ -1,4 +1,4 @@
-name: Deploy site (Vite build)
+name: Deploy to Yandex Object Storage
 
 on:
   push:
@@ -7,16 +7,22 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "yandex-object-storage"
+  cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.YC_STATIC_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_STATIC_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ru-central1
+      AWS_EC2_METADATA_DISABLED: "true"
+      YC_BUCKET: vershina-23.ru
+      YC_WWW_BUCKET: www.vershina-23.ru
+      YC_ENDPOINT: https://storage.yandexcloud.net
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -28,17 +34,34 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Upload site
+        run: >-
+          aws s3 sync dist/ "s3://${YC_BUCKET}"
+          --endpoint-url "${YC_ENDPOINT}"
+          --delete
+          --only-show-errors
+      - name: Upload temporary www copy for certificate validation
+        run: >-
+          aws s3 sync dist/ "s3://${YC_WWW_BUCKET}"
+          --endpoint-url "${YC_ENDPOINT}"
+          --delete
+          --only-show-errors
+      - name: Disable browser caching for entry and service files
+        shell: bash
+        run: |
+          while IFS= read -r file; do
+            if [ -f "dist/${file}" ]; then
+              aws s3 cp "dist/${file}" "s3://${YC_BUCKET}/${file}" \
+                --endpoint-url "${YC_ENDPOINT}" \
+                --cache-control "no-cache, no-store, must-revalidate" \
+                --content-type "$(file --brief --mime-type "dist/${file}")" \
+                --only-show-errors
+            fi
+          done <<'FILES'
+          index.html
+          privacy.html
+          total/index.html
+          robots.txt
+          sitemap.xml
+          site.webmanifest
+          FILES
