@@ -137,22 +137,22 @@ export const CASES = [
     title: "Генеральная уборка",
     place: "ЖК «Курортный проспект», 94 м²",
     facts: ["7 часов", "3 специалиста", "приёмка с первого раза"],
-    before: "/images/case1-before.jpg",
-    after: "/images/case1-after.jpg",
+    before: "/images/case1-before.webp",
+    after: "/images/case1-after.webp",
   },
   {
     title: "После ремонта",
     place: "Мамайка, 61 м²",
     facts: ["2 дня", "4 специалиста", "вывоз строительной пыли"],
-    before: "/images/case2-before.jpg",
-    after: "/images/case2-after.jpg",
+    before: "/images/case2-before.webp",
+    after: "/images/case2-after.webp",
   },
   {
     title: "Дом под ключ",
     place: "Красная Поляна, 180 м²",
     facts: ["2 дня", "5 специалистов", "окна + ароматизация"],
-    before: "/images/case3-before.jpg",
-    after: "/images/case3-after.jpg",
+    before: "/images/case3-before.webp",
+    after: "/images/case3-after.webp",
   },
 ];
 
