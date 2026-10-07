@@ -62,7 +62,7 @@ export default function Hero() {
           </dl>
         </div>
         <div className="relative">
-          <img src="/images/hero.jpg" alt="Интерьер после уборки «Вершины»" className="aspect-[4/5] w-full rounded-3xl object-cover" />
+          <img src="/images/hero.webp" alt="Интерьер после уборки «Вершины»" className="aspect-[4/5] w-full rounded-3xl object-cover" />
           <div className="absolute -bottom-5 -left-5 hidden rounded-2xl bg-white p-5 shadow-card md:block">
             <div className="text-[11px] font-semibold uppercase tracking-widest2 text-emerald">убрано в этом месяце</div>
             <div className="mt-1 text-2xl font-bold text-graphite">
