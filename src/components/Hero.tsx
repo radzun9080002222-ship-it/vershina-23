@@ -1,24 +1,9 @@
 import { Phone } from "lucide-react";
 import { PHONE_HREF } from "../data";
-import { useEffect, useState } from "react";
 import Messengers from "./Messengers";
-
-// Счётчик «убрано»: число текущего дня месяца × множитель.
-// Множитель стартует с 63 (июль 2026) и растёт на 2 каждый следующий месяц.
-function computeArea() {
-  const d = new Date();
-  const day = d.getDate();
-  const monthsSince = (d.getFullYear() - 2026) * 12 + (d.getMonth() - 6);
-  const mult = 63 + 2 * Math.max(0, monthsSince);
-  return day * mult;
-}
+import MonthlyCleaningBadge from "./MonthlyCleaningBadge";
 
 export default function Hero() {
-  // На сервере/до монтирования — null (без числа), чтобы не было рассинхрона гидрации.
-  // Реальное значение считаем на клиенте после монтирования.
-  const [area, setArea] = useState<number | null>(null);
-  useEffect(() => setArea(computeArea()), []);
-
   return (
     <section id="top" className="relative overflow-hidden bg-white pt-[72px]">
       <div className="container-x grid items-center gap-10 py-14 md:py-20 lg:grid-cols-[1.1fr_1fr]">
@@ -64,12 +49,7 @@ export default function Hero() {
         </div>
         <div className="relative">
           <img src="/images/hero.webp" alt="Интерьер после уборки «Вершины»" className="aspect-[4/5] w-full rounded-3xl object-cover" />
-          <div className="absolute -bottom-5 -left-5 hidden rounded-2xl bg-white p-5 shadow-card md:block">
-            <div className="text-[11px] font-semibold uppercase tracking-widest2 text-emerald">убрано в этом месяце</div>
-            <div className="mt-1 text-2xl font-bold text-graphite">
-              {area === null ? "…" : `${area.toLocaleString("ru-RU")} м²`}
-            </div>
-          </div>
+          <MonthlyCleaningBadge />
         </div>
       </div>
     </section>
